@@ -1,0 +1,64 @@
+﻿<Window x:Class="MparWpf.Tests.Sorting.DtaGrid3.MyGrid3Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MparWpf.Tests.Sorting.DtaGrid3"
+        mc:Ignorable="d"
+        Title="MyGrid3Window" Height="450" Width="1200">
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="myEnum" Source="{Binding KleurenList}" />
+    </Window.Resources>
+    
+    
+    <Grid>
+        <DataGrid Name="dgTest" 
+                  ItemsSource="{Binding Path=List}" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="False"  
+                  CanUserSortColumns="True" 
+                  AlternatingRowBackground="LightBlue" 
+                  AlternationCount="2"
+                  >
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Track Title" Binding="{Binding title}" />
+                <DataGridTextColumn Header="Artist" Binding="{Binding artist}" />
+                <DataGridTextColumn Header="Track Number" Binding="{Binding number}" />
+                <DataGridHyperlinkColumn Header="URL" Binding="{Binding url}" />
+                <DataGridCheckBoxColumn  Header="ForSale" Binding="{Binding forSale}" />
+                <DataGridTextColumn  Header="Amount" Binding="{Binding amount}" />
+                <DataGridTextColumn  Header="Date"   Binding="{Binding dateTime, StringFormat=dd-MM-yyyy}"/>
+                <DataGridTextColumn  Header="Datum"  Binding="{Binding dateTime, StringFormat={x:Static local:MyGrid3Window.DateTimeUiFormat}}" />
+                <DataGridTemplateColumn Header="Birthday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Birthday}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                  
+                <DataGridTextColumn  Header="Status" Binding="{Binding status}"/>
+                <DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding Path=KleurenList}"/>
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding Path=KleurenList}"/>
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+
+
+                </DataGridComboBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
+
+<!-- 
+    DisplayMemberPath="Name"
+    SelectedValuePath="ID"
+    -->
